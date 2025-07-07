@@ -1,4 +1,14 @@
-export const fetchData = () => {
+interface FetchDataResponse {
+  message: string;
+  timestamp: string;
+  data: {
+    id: number;
+    name: string;
+    description: string;
+  };
+}
+
+export const fetchData = (): Promise<FetchDataResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
