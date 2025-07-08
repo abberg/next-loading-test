@@ -1,23 +1,13 @@
-interface University {
-  name: string;
-  country: string;
-  web_pages: string[];
-  domains: string[];
-}
 
 interface FetchDataResponse {
-  universities: University[];
-  count: number;
-  country: string;
+  status: number
 }
 
 export const fetchData = async (): Promise<FetchDataResponse> => {
-  const response = await fetch('http://universities.hipolabs.com/search?country=United+States');
-  const universities = await response.json();
+  const response = await fetch('https://fakeresponder.com/?sleep=3000');
+  const data = await response.json();
   
   return {
-    universities,
-    count: universities.length,
-    country: 'United States'
+    status: data.params.status
   };
 }
