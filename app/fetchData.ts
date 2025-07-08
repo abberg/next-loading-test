@@ -1,25 +1,23 @@
-interface FetchDataResponse {
-  message: string;
-  timestamp: string;
-  data: {
-    id: number;
-    name: string;
-    description: string;
-  };
+interface University {
+  name: string;
+  country: string;
+  web_pages: string[];
+  domains: string[];
 }
 
-export const fetchData = (): Promise<FetchDataResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        message: "Data fetched successfully!",
-        timestamp: new Date().toISOString(),
-        data: {
-          id: 1,
-          name: "Sample Data",
-          description: "This is simulated data from the server"
-        }
-      });
-    }, 5000); // 5 second delay to simulate server response
-  });
+interface FetchDataResponse {
+  universities: University[];
+  count: number;
+  country: string;
+}
+
+export const fetchData = async (): Promise<FetchDataResponse> => {
+  const response = await fetch('http://universities.hipolabs.com/search?country=United+States');
+  const universities = await response.json();
+  
+  return {
+    universities,
+    count: universities.length,
+    country: 'United States'
+  };
 }
